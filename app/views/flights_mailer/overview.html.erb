@@ -1,0 +1,65 @@
+<h1>Flights PRG ✈️ MTY from 08/08 to 08/15</h1>
+<hr>
+
+<h2>Recommended</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Route</th>
+			<th>Duration</th>
+			<th>Date</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<% @flights.each do |flight| %>
+	<tr>
+		<td><%= flight['route'].first['cityFrom'] + ' > ' + flight['route'].map {|r| r['cityTo']}.join(' > ') %></td>
+		<td><%= flight['fly_duration'][0...2] %>h</td>
+		<td><%= Time.at(flight['dTimeUTC']).to_datetime.strftime '%d. %m.' %></td>
+		<td><strong><%= flight['conversion']['CZK'] %></strong></td>
+	</tr>	
+	<% end %>
+</table>
+
+<h2>By price</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Route</th>
+			<th>Duration</th>
+			<th>Date</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<% @flights.sort {|a, b| a['conversion']['CZK'] <=> b['conversion']['CZK']}.each do |flight| %>
+	<tr>
+		<td><%= flight['route'].first['cityFrom'] + ' > ' + flight['route'].map {|r| r['cityTo']}.join(' > ') %></td>
+		<td><%= flight['fly_duration'][0...2] %>h</td>
+		<td><%= Time.at(flight['dTimeUTC']).to_datetime.strftime '%d. %m.' %></td>
+		<td><strong><%= flight['conversion']['CZK'] %></strong></td>
+	</tr>	
+	<% end %>
+</table>
+
+<h2>By duration</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Route</th>
+			<th>Duration</th>
+			<th>Date</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<% @flights.sort {|a, b| a['fly_duration'][0...2].to_i <=> b['fly_duration'][0...2].to_i}.each do |flight| %>
+	<tr>
+		<td><%= flight['route'].first['cityFrom'] + ' > ' + flight['route'].map {|r| r['cityTo']}.join(' > ') %></td>
+		<td><%= flight['fly_duration'][0...2] %>h</td>
+		<td><%= Time.at(flight['dTimeUTC']).to_datetime.strftime '%d. %m.' %></td>
+		<td><strong><%= flight['conversion']['CZK'] %></strong></td>
+	</tr>	
+	<% end %>
+</table>
+<br>
+<hr>
+<a href="https://www.kiwi.com/cz/hledej/praha-ceska-republika/monterrey-mty/2016-08-08_2016-08-15">Zdroj</a>
