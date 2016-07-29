@@ -32,5 +32,8 @@ namespace :flights do
     result = Kiwi.new.search search
 
     FlightsMailer.cheapest(result['data']).deliver 
+
+    # store cheapest flight in db
+    Flight.create(time: Time.now, price: result['data'].first['conversion']['CZK'].to_i)
   end
 end

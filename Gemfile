@@ -38,3 +38,6 @@ end
 
 gem 'rest-client'
 gem 'letter_opener', group: :development
+
+gem 'chartkick'
+gem 'groupdate'
