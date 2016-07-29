@@ -1,0 +1,21 @@
+<h1>Current cheapest flight</h1>
+<hr>
+
+<table>
+	<thead>
+		<tr>
+			<th>Route</th>
+			<th>Duration</th>
+			<th>Date</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<% @flights.each do |flight| %>
+	<tr>
+		<td><%= flight['route'].first['cityFrom'] + ' > ' + flight['route'].map {|r| r['cityTo']}.join(' > ') %></td>
+		<td><%= flight['fly_duration'][0...2] %>h</td>
+		<td><%= Time.at(flight['dTimeUTC']).to_datetime.strftime '%d. %m.' %></td>
+		<td><strong><%= flight['conversion']['CZK'] %></strong></td>
+	</tr>	
+	<% end %>
+</table>
